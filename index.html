@@ -1,0 +1,1040 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Azel Market ID - Digital Service & Virtual Number Solution</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#080509',
+                            card: '#120b15',
+                            cardBorder: '#27142d',
+                            pink: '#ec4899',
+                            hotPink: '#ff007f',
+                            purpleAccent: '#9333ea',
+                        }
+                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    boxShadow: {
+                        'neon-pink': '0 0 25px rgba(236, 72, 153, 0.45)',
+                        'neon-glow': '0 0 30px rgba(255, 0, 127, 0.3), 0 0 10px rgba(147, 51, 234, 0.2)'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --pink: #ec4899;
+            --hot-pink: #ff007f;
+            --purple: #9333ea;
+            --violet: #c084fc;
+            --bg: #080509;
+        }
+
+        * { -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg);
+            color: #fce7f3;
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ==== ANIMATED BACKGROUND ==== */
+        .bg-grid {
+            position: fixed;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(236, 72, 153, 0.035) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(236, 72, 153, 0.035) 1px, transparent 1px);
+            background-size: 60px 60px;
+            z-index: -3;
+            mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 80%);
+        }
+
+        .orb {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(90px);
+            opacity: 0.35;
+            z-index: -3;
+            pointer-events: none;
+            animation: floatOrb 18s ease-in-out infinite;
+        }
+        .orb-1 {
+            width: 380px; height: 380px;
+            background: radial-gradient(circle, #ff007f, transparent 70%);
+            top: -8%; left: -8%;
+            animation-delay: 0s;
+        }
+        .orb-2 {
+            width: 320px; height: 320px;
+            background: radial-gradient(circle, #9333ea, transparent 70%);
+            bottom: -10%; right: -5%;
+            animation-delay: -6s;
+        }
+        .orb-3 {
+            width: 280px; height: 280px;
+            background: radial-gradient(circle, #ec4899, transparent 70%);
+            top: 45%; left: 55%;
+            animation-delay: -12s;
+        }
+        @keyframes floatOrb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(40px, -50px) scale(1.1); }
+            66% { transform: translate(-30px, 40px) scale(0.95); }
+        }
+
+        /* ==== BACKGROUND HUTAO ==== */
+        .bg-anime-wrapper {
+            position: fixed;
+            inset: 0;
+            background-image: url('hutao.jpg');
+            background-size: cover;
+            background-position: center top;
+            background-repeat: no-repeat;
+            z-index: -2;
+            filter: saturate(1.1) contrast(1.05);
+        }
+
+        /* Efek glow pink/purple di atas background Hu Tao */
+        .bg-anime-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 75% 25%, rgba(255, 0, 127, 0.22), transparent 55%),
+                radial-gradient(circle at 20% 80%, rgba(147, 51, 234, 0.18), transparent 50%);
+            pointer-events: none;
+        }
+
+        .bg-anime-overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(
+                135deg,
+                rgba(8, 5, 9, 0.90) 0%,
+                rgba(18, 11, 21, 0.84) 50%,
+                rgba(8, 5, 9, 0.93) 100%
+            );
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: -1;
+        }
+
+        /* Noise texture */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+            opacity: 0.025;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* ==== SCROLLBAR ==== */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #080509; }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--pink), var(--purple));
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover { background: var(--hot-pink); }
+
+        /* ==== GLASSMORPHISM ==== */
+        .glass-panel {
+            background: linear-gradient(145deg, rgba(24, 14, 28, 0.88), rgba(18, 11, 21, 0.78));
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(236, 72, 153, 0.14);
+            position: relative;
+        }
+
+        .glass-nav {
+            background: rgba(8, 5, 9, 0.82);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        /* ==== GRADIENT TEXT (Animated) ==== */
+        .gradient-text {
+            background: linear-gradient(135deg, #ff007f 0%, #ec4899 25%, #c084fc 50%, #ec4899 75%, #ff007f 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 6s ease infinite;
+        }
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* ==== CARDS ==== */
+        .card-glow {
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                        box-shadow 0.35s ease,
+                        border-color 0.35s ease;
+            will-change: transform;
+        }
+        .card-glow:hover {
+            transform: translateY(-6px);
+            border-color: rgba(236, 72, 153, 0.5) !important;
+            box-shadow:
+                0 20px 45px -15px rgba(236, 72, 153, 0.4),
+                0 0 25px -5px rgba(147, 51, 234, 0.25),
+                inset 0 1px 0 rgba(255,255,255,0.06);
+        }
+
+        /* Shine sweep */
+        .card-shine { position: relative; overflow: hidden; }
+        .card-shine::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(115deg, transparent 30%, rgba(236,72,153,0.12) 48%, rgba(192,132,252,0.16) 52%, transparent 70%);
+            transform: translateX(-120%);
+            transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+        .card-shine:hover::after { transform: translateX(120%); }
+
+        /* ==== BUTTONS ==== */
+        .btn-gradient {
+            position: relative;
+            background: linear-gradient(135deg, #ec4899, #9333ea);
+            background-size: 200% 200%;
+            transition: all 0.35s ease;
+            overflow: hidden;
+        }
+        .btn-gradient:hover {
+            background-position: 100% 0;
+            box-shadow: 0 0 30px rgba(236, 72, 153, 0.6), 0 8px 20px -6px rgba(147, 51, 234, 0.5);
+            transform: translateY(-2px);
+        }
+        .btn-gradient:active { transform: translateY(0); }
+
+        .btn-outline {
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        .btn-outline:hover {
+            border-color: rgba(236, 72, 153, 0.8) !important;
+            box-shadow: 0 0 18px rgba(236, 72, 153, 0.35);
+            background: rgba(236, 72, 153, 0.08) !important;
+        }
+
+        /* ==== TAB TRANSITIONS ==== */
+        .tab-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+        }
+        .tab-content.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ==== ANIMATIONS ==== */
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; filter: drop-shadow(0 0 12px rgba(236,72,153,0.8)); }
+        }
+        .animate-pulse-glow { animation: pulseGlow 3s infinite ease-in-out; }
+
+        @keyframes scanLine {
+            0% { top: 0%; opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 100%; opacity: 0; }
+        }
+        .qr-scan { position: relative; overflow: hidden; }
+        .qr-scan::before {
+            content: '';
+            position: absolute;
+            left: 5%; right: 5%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--pink), var(--violet), transparent);
+            box-shadow: 0 0 12px var(--pink);
+            border-radius: 4px;
+            animation: scanLine 3s ease-in-out infinite;
+            z-index: 5;
+        }
+
+        @keyframes statusPing {
+            0% { transform: scale(1); opacity: 0.7; }
+            80%, 100% { transform: scale(2.2); opacity: 0; }
+        }
+        .status-ping::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            background: inherit;
+            animation: statusPing 1.8s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+
+        /* Header gradient line */
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -1px; left: 0; right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(236,72,153,0.6), rgba(147,51,234,0.6), rgba(236,72,153,0.6), transparent);
+            background-size: 200% 100%;
+            animation: gradientShift 4s linear infinite;
+        }
+
+        /* Floating animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+        .float-anim { animation: float 4s ease-in-out infinite; }
+
+        .nav-tab-btn, .mobile-tab-btn { position: relative; overflow: hidden; }
+
+        input:focus, select:focus, textarea:focus {
+            box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.15), 0 0 15px rgba(236, 72, 153, 0.2);
+        }
+
+        @keyframes modalIn {
+            from { opacity: 0; transform: scale(0.92) translateY(20px); }
+            to { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-anim { animation: modalIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(#120b15, #120b15) padding-box,
+                        linear-gradient(135deg, rgba(236,72,153,0.5), rgba(147,51,234,0.35), rgba(236,72,153,0.2)) border-box;
+            border: 1px solid transparent;
+        }
+
+        .hero-banner::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: inherit;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(236,72,153,0.6), rgba(147,51,234,0.3), transparent 70%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .section-heading {
+            position: relative;
+            display: inline-block;
+        }
+        .section-heading::after {
+            content: '';
+            position: absolute;
+            bottom: -6px; left: 0;
+            width: 60%; height: 2px;
+            background: linear-gradient(90deg, var(--pink), transparent);
+            border-radius: 2px;
+        }
+
+        /* ==== RESPONSIF HUTAO BG ==== */
+        @media (max-width: 768px) {
+            .bg-anime-wrapper {
+                background-position: center top;
+                background-size: cover;
+            }
+            .bg-anime-overlay {
+                backdrop-filter: blur(3px);
+                -webkit-backdrop-filter: blur(3px);
+            }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between antialiased selection:bg-pink-500 selection:text-white pb-20 md:pb-0">
+
+    <!-- Background Layers -->
+    <div class="bg-anime-wrapper"></div>
+    <div class="bg-anime-overlay"></div>
+    <div class="bg-grid"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <!-- ============ HEADER ============ -->
+    <header class="sticky top-0 z-40 glass-nav border-b border-pink-950/60 px-4 lg:px-8 py-3.5 transition-all">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+
+            <div class="flex items-center space-x-3 cursor-pointer group" onclick="switchTab('nokos')">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-pink-600 to-purple-600 p-0.5 shadow-neon-pink flex items-center justify-center group-hover:shadow-neon-glow transition-all duration-300 group-hover:scale-105">
+                    <div class="w-full h-full bg-brand-dark rounded-[10px] flex items-center justify-center">
+                        <i class="fa-solid font-bold text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-purple-400 fa-bolt text-xl"></i>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-lg md:text-xl font-extrabold tracking-wider gradient-text uppercase">AZEL MARKET ID</span>
+                    <span class="block text-[9px] md:text-[10px] text-pink-400/80 tracking-widest font-semibold uppercase -mt-1">Cyber Pink Solution</span>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center space-x-1 bg-black/50 p-1.5 rounded-full border border-pink-950/80 backdrop-blur-md">
+                <button onclick="switchTab('nokos')" id="nav-btn-nokos" class="nav-tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-sim-card text-xs"></i> Jual Nokos
+                </button>
+                <button onclick="switchTab('services')" id="nav-btn-services" class="nav-tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-triangle-exclamation text-xs"></i> Jasa Bug WA
+                </button>
+                <button onclick="switchTab('qris')" id="nav-btn-qris" class="nav-tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-qrcode text-xs"></i> QRIS All Payment
+                </button>
+                <button onclick="switchTab('contact')" id="nav-btn-contact" class="nav-tab-btn px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center gap-2">
+                    <i class="fa-solid fa-headset text-xs"></i> Kontak & Media
+                </button>
+            </nav>
+
+            <div class="hidden sm:flex items-center space-x-3">
+                <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-400 text-xs font-semibold">
+                    <span class="relative w-2 h-2 rounded-full bg-pink-400 status-ping"></span> 24/7 Active
+                </div>
+                <a href="https://wa.me/6285601099994?text=Halo%20Admin%20Azel%20Market%20ID,%20saya%20butuh%20bantuan" target="_blank" class="btn-gradient px-4 py-2 text-xs font-bold text-white rounded-lg flex items-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-sm"></i> Order Cepat
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ============ MAIN ============ -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full flex-grow">
+
+        <div class="mb-6 p-4 rounded-2xl glass-panel hero-banner flex items-center justify-between relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-pink-500/10 rounded-full blur-3xl"></div>
+            <div class="absolute -left-10 -top-10 w-32 h-32 bg-purple-500/10 rounded-full blur-3xl"></div>
+            <div class="flex items-center gap-3 z-10">
+                <div class="float-anim w-11 h-11 rounded-xl bg-gradient-to-br from-pink-500/25 to-purple-500/25 border border-pink-500/40 flex items-center justify-center text-pink-400 shrink-0">
+                    <i class="fa-solid fa-fire text-lg animate-pulse-glow"></i>
+                </div>
+                <div>
+                    <h4 class="text-sm font-bold text-pink-100">Azel Market ID Official Store 🖤🩷</h4>
+                    <p class="text-xs text-pink-300/80">Semua layanan bergaransi dan diproses instan via Admin WhatsApp resmi kami.</p>
+                </div>
+            </div>
+            <button onclick="switchTab('qris')" class="hidden md:flex shrink-0 text-xs px-3.5 py-2 rounded-lg bg-black/60 hover:bg-pink-600/20 text-pink-400 font-semibold border border-pink-900 items-center gap-1.5 transition-all duration-300">
+                Metode Bayar <i class="fa-solid fa-chevron-right text-[10px]"></i>
+            </button>
+        </div>
+
+        <!-- PAGE 1 -->
+        <section id="page-nokos" class="tab-content active">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-extrabold text-white flex items-center gap-2.5">
+                        <span class="w-10 h-10 rounded-xl bg-pink-500/15 border border-pink-500/30 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-sim-card text-pink-500 text-lg"></i>
+                        </span>
+                        <span class="section-heading">Nomor Kosong <span class="gradient-text">(Nokos OTP)</span></span>
+                    </h1>
+                    <p class="text-pink-300/80 text-sm mt-2">Sewa nomor virtual instan untuk verifikasi WhatsApp, Telegram, TikTok, dan platform lainnya.</p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-2.5">
+                    <div class="relative">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-pink-500/60 text-xs"></i>
+                        <input type="text" id="search-nokos" onkeyup="filterNokos()" placeholder="Cari layanan..." class="w-full sm:w-56 pl-9 pr-4 py-2.5 bg-black/70 border border-pink-950 rounded-xl text-xs text-white placeholder-pink-500/40 focus:outline-none focus:border-pink-500 transition-all duration-300">
+                    </div>
+                    <select id="filter-country" onchange="filterNokos()" class="bg-black/70 border border-pink-950 rounded-xl px-3 py-2.5 text-xs text-pink-200 focus:outline-none focus:border-pink-500 transition-all duration-300 cursor-pointer">
+                        <option value="ALL">Semua Negara</option>
+                        <option value="ID">Indonesia 🇮🇩</option>
+                        <option value="US">Amerika Serikat 🇺🇸</option>
+                        <option value="MY">Malaysia 🇲🇾</option>
+                        <option value="RU">Rusia 🇷🇺</option>
+                        <option value="PH">Filipina 🇵🇭</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4" id="nokos-container"></div>
+        </section>
+
+        <!-- PAGE 2 -->
+        <section id="page-services" class="tab-content">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-extrabold text-white flex items-center gap-2.5">
+                        <span class="w-10 h-10 rounded-xl bg-pink-500/15 border border-pink-500/30 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-triangle-exclamation text-pink-500 text-lg"></i>
+                        </span>
+                        <span class="section-heading">Jasa Bug & <span class="gradient-text">Solusi WhatsApp</span></span>
+                    </h1>
+                    <p class="text-pink-300/80 text-sm mt-2">Layanan profesional seputar WhatsApp, pemulihan akun banned, penanganan limit, hingga sistem bot.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="services-container"></div>
+
+            <div class="mt-8 p-6 rounded-2xl glass-panel gradient-border flex flex-col md:flex-row items-center justify-between gap-4 relative overflow-hidden">
+                <div class="absolute -right-8 -top-8 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl"></div>
+                <div class="flex items-center gap-4 relative z-10">
+                    <div class="float-anim w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500/25 to-purple-500/25 border border-pink-500/30 text-pink-400 flex items-center justify-center text-2xl shrink-0">
+                        <i class="fa-solid fa-shield-cat"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-base font-bold text-white">Privasi & Garansi Keamanan Terjaga</h3>
+                        <p class="text-xs text-pink-300/80 mt-1">Seluruh layanan dikerjakan oleh tim ahli Azel Market ID dengan garansi uang kembali sesuai ketentuan paket.</p>
+                    </div>
+                </div>
+                <button onclick="switchTab('contact')" class="btn-gradient px-5 py-2.5 rounded-xl text-white font-bold text-xs shrink-0 flex items-center gap-2 relative z-10">
+                    <i class="fa-solid fa-headset text-sm"></i> Konsultasi Masalah
+                </button>
+            </div>
+        </section>
+
+        <!-- PAGE 3 -->
+        <section id="page-qris" class="tab-content">
+            <div class="text-center max-w-2xl mx-auto mb-8">
+                <h1 class="text-2xl md:text-3xl font-extrabold text-white flex items-center justify-center gap-2.5">
+                    <span class="w-10 h-10 rounded-xl bg-pink-500/15 border border-pink-500/30 flex items-center justify-center shrink-0">
+                        <i class="fa-solid fa-qrcode text-pink-500 text-lg"></i>
+                    </span>
+                    <span>QRIS <span class="gradient-text">All Payment</span></span>
+                </h1>
+                <p class="text-pink-300/80 text-sm mt-2">Satu QR Code untuk seluruh aplikasi E-Wallet dan Mobile Banking di Indonesia. Praktis, cepat, dan tanpa ribet.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <div class="lg:col-span-5 glass-panel gradient-border p-6 rounded-2xl text-center relative card-glow">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/30 text-pink-400 text-xs font-bold mb-4">
+                        <i class="fa-solid fa-bolt"></i> Instant Settlement QRIS
+                    </span>
+
+                    <div class="qr-scan bg-white p-4 rounded-2xl inline-block shadow-neon-pink relative group mx-auto">
+                        <img src="https://i.imgur.com/6qDS1iN.png?text=QRIS+AZEL+MARKET+ID" alt="QRIS All Payment Azel Market" id="qris-img" class="w-64 h-64 object-contain mx-auto rounded-lg">
+                        <div class="absolute inset-0 bg-black/60 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-3">
+                            <button onclick="zoomQR()" class="p-2.5 bg-pink-500 rounded-full text-white hover:scale-110 transition-transform duration-200">
+                                <i class="fa-solid fa-magnifying-glass-plus text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <h3 class="text-lg font-bold text-white mt-4">AZEL MARKET ID</h3>
+                    <p class="text-xs text-pink-400/80">NMID: ID1029384756102</p>
+
+                    <div class="flex items-center justify-center gap-3 mt-5">
+                        <button onclick="downloadQR()" class="btn-outline px-4 py-2 rounded-xl bg-black/70 text-pink-200 text-xs font-semibold border border-pink-900 flex items-center gap-2">
+                            <i class="fa-solid fa-download"></i> Unduh QR
+                        </button>
+                        <button onclick="copyNMID()" class="btn-outline px-4 py-2 rounded-xl bg-black/70 text-pink-200 text-xs font-semibold border border-pink-900 flex items-center gap-2">
+                            <i class="fa-solid fa-copy"></i> Salin NMID
+                        </button>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 space-y-6">
+                    <div class="glass-panel p-6 rounded-2xl border border-pink-950">
+                        <h3 class="text-sm font-bold text-pink-200 uppercase tracking-wider mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-wallet text-pink-400"></i> Didukung Semua E-Wallet & Bank
+                        </h3>
+
+                        <div class="grid grid-cols-3 sm:grid-cols-4 gap-3 text-center">
+                            <div class="p-3 bg-black/60 rounded-xl border border-pink-950/50 text-xs font-semibold text-pink-300 hover:border-pink-500 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-mobile-screen text-pink-400 block text-lg mb-1"></i> DANA
+                            </div>
+                            <div class="p-3 bg-black/60 rounded-xl border border-pink-950/50 text-xs font-semibold text-pink-300 hover:border-pink-500 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-motorcycle text-green-400 block text-lg mb-1"></i> GoPay
+                            </div>
+                            <div class="p-3 bg-black/60 rounded-xl border border-pink-950/50 text-xs font-semibold text-pink-300 hover:border-pink-500 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-circle-dot text-purple-400 block text-lg mb-1"></i> OVO
+                            </div>
+                            <div class="p-3 bg-black/60 rounded-xl border border-pink-950/50 text-xs font-semibold text-pink-300 hover:border-pink-500 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-bag-shopping text-orange-400 block text-lg mb-1"></i> ShopeePay
+                            </div>
+                            <div class="p-3 bg-black/60 rounded-xl border border-pink-950/50 text-xs font-semibold text-pink-300 hover:border-pink-500 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-building-columns text-cyan-400 block text-lg mb-1"></i> BCA
+                            </div>
+                            <div class="p-3 bg-black/60 rounded-xl border border-pink-950/50 text-xs font-semibold text-pink-300 hover:border-pink-500 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-building-columns text-blue-500 block text-lg mb-1"></i> BRI
+                            </div>
+                            <div class="p-3 bg-black/60 rounded-xl border border-pink-950/50 text-xs font-semibold text-pink-300 hover:border-pink-500 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-building-columns text-yellow-500 block text-lg mb-1"></i> Mandiri
+                            </div>
+                            <div class="p-3 bg-black/60 rounded-xl border border-pink-950/50 text-xs font-semibold text-pink-300 hover:border-pink-500 hover:-translate-y-0.5 transition-all duration-200 cursor-default">
+                                <i class="fa-solid fa-building-columns text-orange-500 block text-lg mb-1"></i> BNI
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel p-6 rounded-2xl border border-pink-950 space-y-3">
+                        <h3 class="text-sm font-bold text-pink-200 uppercase tracking-wider mb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-list-check text-pink-400"></i> Panduan Pembayaran
+                        </h3>
+
+                        <div class="flex items-start gap-3 text-xs text-pink-200">
+                            <span class="w-6 h-6 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center font-bold shrink-0 mt-0.5">1</span>
+                            <p>Buka aplikasi e-wallet atau M-Banking Anda (DANA, BCA, OVO, dll).</p>
+                        </div>
+                        <div class="flex items-start gap-3 text-xs text-pink-200">
+                            <span class="w-6 h-6 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center font-bold shrink-0 mt-0.5">2</span>
+                            <p>Pilih menu <strong>Scan / Pay</strong> lalu arahkan kamera ke barcode QRIS di atas.</p>
+                        </div>
+                        <div class="flex items-start gap-3 text-xs text-pink-200">
+                            <span class="w-6 h-6 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center font-bold shrink-0 mt-0.5">3</span>
+                            <p>Masukkan nominal transfer sesuai tagihan pesanan Anda.</p>
+                        </div>
+                        <div class="flex items-start gap-3 text-xs text-pink-200">
+                            <span class="w-6 h-6 rounded-full bg-pink-500/20 text-pink-400 flex items-center justify-center font-bold shrink-0 mt-0.5">4</span>
+                            <p>Screenshot bukti transaksi dan kirimkan langsung ke WhatsApp Admin.</p>
+                        </div>
+
+                        <div class="pt-2">
+                            <a href="https://wa.me/6285601099994?text=Halo%20Admin,%20saya%20sudah%20melakukan%20pembayaran%20via%20QRIS.%20Berikut%20bukti%20transfernya:" target="_blank" class="btn-gradient w-full py-2.5 rounded-xl text-white font-bold text-xs flex items-center justify-center gap-2">
+                                <i class="fa-brands fa-whatsapp text-base"></i> Konfirmasi Pembayaran QRIS
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PAGE 4 -->
+        <section id="page-contact" class="tab-content">
+            <div class="max-w-4xl mx-auto space-y-8">
+                <div class="text-center">
+                    <h1 class="text-2xl md:text-3xl font-extrabold text-white flex items-center justify-center gap-2.5">
+                        <span class="w-10 h-10 rounded-xl bg-pink-500/15 border border-pink-500/30 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-headset text-pink-500 text-lg"></i>
+                        </span>
+                        <span>Kontak Admin & <span class="gradient-text">Saluran Resmi</span></span>
+                    </h1>
+                    <p class="text-pink-300/80 text-sm mt-2">Hubungi admin official Azel Market ID dan ikuti saluran media sosial kami untuk update stok harian.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="glass-panel card-glow card-shine p-5 rounded-2xl border border-pink-500/40 flex items-center gap-4 relative overflow-hidden">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-pink-600 to-purple-600 p-0.5 shrink-0">
+                            <img src="https://i.imgur.com/5jlPX0k.jpeg?text=Admin" alt="Admin Azel Market" class="w-full h-full object-cover rounded-[14px]">
+                        </div>
+                        <div class="flex-grow relative z-10">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-pink-400 bg-pink-500/10 px-2 py-0.5 rounded">Admin Utama 1</span>
+                            <h3 class="text-base font-bold text-white mt-1">Azel Support Fast Response</h3>
+                            <p class="text-xs text-pink-300/70">Layanan Order Nokos & Jasa Bug</p>
+                            <a href="https://wa.me/62856010999o4?text=Halo%20Admin%20Azel%20Market" target="_blank" class="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-pink-400 hover:text-pink-300 transition-colors">
+                                <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="glass-panel card-glow card-shine p-5 rounded-2xl border border-purple-500/40 flex items-center gap-4 relative overflow-hidden">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-purple-600 to-pink-600 p-0.5 shrink-0">
+                            <img src="https://i.imgur.com/5jlPX0k.jpeg?text=Admin2" alt="Admin 2 Azel Market" class="w-full h-full object-cover rounded-[14px]">
+                        </div>
+                        <div class="flex-grow relative z-10">
+                            <span class="text-[10px] font-bold uppercase tracking-wider text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded">Admin Cadangan 2</span>
+                            <h3 class="text-base font-bold text-white mt-1">Azel Secondary Support</h3>
+                            <p class="text-xs text-pink-300/70">Bantuan Pembayaran & Komplain</p>
+                            <a href="https://wa.me/6285601099994?text=Halo%20Admin%202%20Azel%20Market" target="_blank" class="mt-2 inline-flex items-center gap-1.5 text-xs font-bold text-purple-400 hover:text-purple-300 transition-colors">
+                                <i class="fa-brands fa-whatsapp"></i> Chat WhatsApp <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-sm font-bold text-pink-200 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-share-nodes text-pink-400"></i> Saluran Resmi & Sosial Media
+                    </h3>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <a href="https://whatsapp.com/channel/0029Vb8f2PZ8kyyR7baThp1S" target="_blank" class="glass-panel card-glow p-4 rounded-xl border border-pink-950 flex items-center gap-3 group">
+                            <div class="w-10 h-10 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-pink-500/20 transition-all duration-300">
+                                <i class="fa-solid fa-bullhorn"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white">Saluran WhatsApp</h4>
+                                <p class="text-[10px] text-pink-300/70">Update Stok & Promo</p>
+                            </div>
+                        </a>
+
+                        <a href="https://tiktok.com/@axellmarketid" target="_blank" class="glass-panel card-glow p-4 rounded-xl border border-pink-950 flex items-center gap-3 group">
+                            <div class="w-10 h-10 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-pink-500/20 transition-all duration-300">
+                                <i class="fa-brands fa-tiktok"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white">TikTok Official</h4>
+                                <p class="text-[10px] text-pink-300/70">Review & Testimoni</p>
+                            </div>
+                        </a>
+
+                        <a href="https://t.me/axellmarkettid" target="_blank" class="glass-panel card-glow p-4 rounded-xl border border-pink-950 flex items-center gap-3 group">
+                            <div class="w-10 h-10 rounded-lg bg-pink-500/10 text-pink-400 flex items-center justify-center text-xl group-hover:scale-110 group-hover:bg-pink-500/20 transition-all duration-300">
+                                <i class="fa-brands fa-telegram"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-white">Grup Telegram</h4>
+                                <p class="text-[10px] text-pink-300/70">Komunitas Pembeli</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="glass-panel gradient-border p-6 rounded-2xl">
+                    <h3 class="text-sm font-bold text-pink-200 mb-1 flex items-center gap-2">
+                        <i class="fa-solid fa-paper-plane text-pink-400"></i> Kirim Pesan Cepat ke Admin
+                    </h3>
+                    <p class="text-xs text-pink-300/80 mb-4">Isi formulir ini untuk langsung terhubung ke WhatsApp Admin dengan format pesan otomatis.</p>
+
+                    <form id="quick-message-form" onsubmit="sendQuickMessage(event)" class="space-y-3">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <div>
+                                <label class="block text-[11px] text-pink-300 mb-1">Nama Anda</label>
+                                <input type="text" id="cust-name" required placeholder="Contoh: Rina" class="w-full px-3 py-2.5 bg-black/70 border border-pink-950 rounded-xl text-xs text-white focus:outline-none focus:border-pink-500 transition-all duration-300">
+                            </div>
+                            <div>
+                                <label class="block text-[11px] text-pink-300 mb-1">Topik Layanan</label>
+                                <select id="cust-topic" class="w-full px-3 py-2.5 bg-black/70 border border-pink-950 rounded-xl text-xs text-pink-200 focus:outline-none focus:border-pink-500 transition-all duration-300 cursor-pointer">
+                                    <option value="Nokos Virtual">Order Nokos Virtual</option>
+                                    <option value="Jasa Bug WhatsApp">Jasa Bug WhatsApp</option>
+                                    <option value="Kendala QRIS">Kendala Pembayaran QRIS</option>
+                                    <option value="Pertanyaan Lain">Pertanyaan Umum</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] text-pink-300 mb-1">Pesan Anda</label>
+                            <textarea id="cust-message" rows="3" required placeholder="Tuliskan detail pesanan atau pertanyaan di sini..." class="w-full px-3 py-2.5 bg-black/70 border border-pink-950 rounded-xl text-xs text-white focus:outline-none focus:border-pink-500 transition-all duration-300"></textarea>
+                        </div>
+                        <button type="submit" class="btn-gradient w-full py-2.5 rounded-xl font-bold text-xs text-white flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> Kirim Pesan via WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- MOBILE BOTTOM NAV -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 z-50 glass-nav border-t border-pink-950 px-2 py-2 pb-safe">
+        <div class="flex items-center justify-around">
+            <button onclick="switchTab('nokos')" id="mobile-btn-nokos" class="mobile-tab-btn flex flex-col items-center justify-center text-pink-400/60 py-1 px-3 rounded-lg text-[10px] font-medium transition-all duration-300">
+                <i class="fa-solid fa-sim-card text-base mb-1"></i>
+                <span>Nokos</span>
+            </button>
+            <button onclick="switchTab('services')" id="mobile-btn-services" class="mobile-tab-btn flex flex-col items-center justify-center text-pink-400/60 py-1 px-3 rounded-lg text-[10px] font-medium transition-all duration-300">
+                <i class="fa-solid fa-triangle-exclamation text-base mb-1"></i>
+                <span>Jasa Bug</span>
+            </button>
+            <button onclick="switchTab('qris')" id="mobile-btn-qris" class="mobile-tab-btn flex flex-col items-center justify-center text-pink-400/60 py-1 px-3 rounded-lg text-[10px] font-medium transition-all duration-300">
+                <i class="fa-solid fa-qrcode text-base mb-1"></i>
+                <span>QRIS</span>
+            </button>
+            <button onclick="switchTab('contact')" id="mobile-btn-contact" class="mobile-tab-btn flex flex-col items-center justify-center text-pink-400/60 py-1 px-3 rounded-lg text-[10px] font-medium transition-all duration-300">
+                <i class="fa-solid fa-headset text-base mb-1"></i>
+                <span>Kontak</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- FOOTER -->
+    <footer class="glass-nav border-t border-pink-950/40 py-6 px-4 text-center text-xs text-pink-400/70 mt-12 mb-12 md:mb-0">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
+            <p>&copy; 2026 <span class="gradient-text font-bold">Azel Market ID</span>. All Rights Reserved.</p>
+            <p class="text-[11px] flex items-center gap-1.5">Cyber Pink Aesthetic Store <span>🖤🩷</span></p>
+        </div>
+    </footer>
+
+    <!-- ORDER MODAL -->
+    <div id="order-modal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
+        <div class="modal-anim glass-panel max-w-md w-full rounded-2xl border border-pink-500/40 p-6 relative shadow-neon-glow">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-pink-400 hover:text-white hover:rotate-90 text-lg transition-all duration-300">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl shrink-0">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-white" id="modal-item-title">Detail Pesanan</h3>
+                    <p class="text-xs text-pink-400 font-semibold" id="modal-item-price">Rp 0</p>
+                </div>
+            </div>
+
+            <div class="space-y-3 my-4 bg-black/60 p-3.5 rounded-xl border border-pink-950 text-xs">
+                <div class="flex justify-between text-pink-300/70">
+                    <span>Layanan/Kategori:</span>
+                    <span class="text-pink-200 font-medium" id="modal-item-platform">-</span>
+                </div>
+                <div class="flex justify-between text-pink-300/70">
+                    <span>Status Garansi:</span>
+                    <span class="text-emerald-400 font-medium" id="modal-item-guarantee">Garansi Resmi Toko</span>
+                </div>
+                <div class="flex justify-between text-pink-300/70">
+                    <span>Proses:</span>
+                    <span class="text-pink-400 font-medium">Instan via WhatsApp</span>
+                </div>
+            </div>
+
+            <p class="text-[11px] text-pink-300/60 mb-4">
+                *Mengklik tombol di bawah akan mengarahkan Anda ke WhatsApp Admin untuk menyelesaikan transaksi secara aman.
+            </p>
+
+            <div class="flex gap-2">
+                <button onclick="closeModal()" class="w-1/3 py-2.5 rounded-xl bg-black/80 hover:bg-black text-pink-300 font-bold text-xs border border-pink-950 transition-colors">
+                    Batal
+                </button>
+                <a id="modal-wa-btn" href="#" target="_blank" class="btn-gradient w-2/3 py-2.5 rounded-xl text-white font-bold text-xs flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-sm"></i> Kirim Pesanan WA
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ZOOM MODAL -->
+    <div id="zoom-modal" class="fixed inset-0 z-50 bg-black/95 hidden items-center justify-center p-4 cursor-pointer" onclick="this.classList.add('hidden'); this.classList.remove('flex');">
+        <div class="modal-anim relative max-w-sm w-full bg-white p-4 rounded-2xl">
+            <img src="https://i.imgur.com/6qDS1iN.png?text=QRIS+AZEL+MARKET+ID" alt="QRIS Zoom" class="w-full h-auto rounded-lg">
+            <p class="text-center text-black text-xs font-bold mt-2">Klik di mana saja untuk menutup</p>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT -->
+    <script>
+        const nokosData = [
+            { id: 1, name: 'Nokos WhatsApp ID 🇮🇩', country: 'ID', countryName: 'Indonesia', platform: 'WhatsApp', price: 'Rp 10.000', stock: 'Ready', badge: 'Terlaris' },
+            { id: 2, name: 'Nokos WhatsApp US 🇺🇸', country: 'US', countryName: 'Amerika Serikat', platform: 'WhatsApp', price: 'Rp 48.000', stock: 'Ready', badge: 'Fast OTP' },
+            { id: 3, name: 'Nokos MY 🇲🇾', country: 'ID', countryName: 'Malaysia', platform: 'WhatsApp', price: 'Rp 59.000', stock: 'Ready', badge: 'Garansi' },
+            { id: 4, name: 'Nokos Philipina 🇵🇭', country: 'MY', countryName: 'Philipina', platform: 'WhatsApp', price: 'Rp 15.000', stock: 'Ready', badge: 'Fresh' },
+            { id: 5, name: 'Nokos Inggris (UK) 🇬🇧', country: 'ID', countryName: 'United Kingdom', platform: 'TikTok', price: 'Rp 29.000', stock: 'Ready', badge: 'Super Cheap' },
+            { id: 6, name: 'Nokos Jepang 🇯🇵', country: 'ID', countryName: 'Japan', platform: 'WhatsApp', price: 'Rp 22.000', stock: 'Ready', badge: 'Recom' },
+            { id: 7, name: 'Nokos Korea 🇰🇷', country: 'ID', countryName: 'Korea', platform: 'WhatsApp', price: 'Rp 27.000', stock: 'Proses Fast', badge: 'Hot' },
+            { id: 8, name: 'Nokos WhatsApp RU 🇷🇺', country: 'RU', countryName: 'Rusia', platform: 'WhatsApp', price: 'Rp 33.000', stock: 'Ready', badge: 'Langka' }
+        ];
+
+        const servicesData = [
+            { id: 101, title: 'Jasa Bug WA', desc: 'Bug whatsapp yang di artikan memberi virtex kepada korban selama waktu tertata. ', price: 'Rp 10.000 - 20.000', specs: ['Garansi refund tidak c1', 'Proses cepat 1-24 Jam', 'Metode aman teruji'], badge: 'Top Service' },
+            { id: 102, title: 'Jasa Band gb', desc: 'Band gb hanya bertahan 24jam jika di tinjau,Band akan permanen ketika hoki', price: 'Rp 30.000', specs: ['Band gb', 'Aman', 'Panduan pencegahan'], badge: 'Paling Laris!' },
+            { id: 103, title: 'Jasa Perbaikan Sesi & Clean Database WA', desc: 'Pembersihan chating berlebih dan perbaikan database agar aplikasi kembali ringan dan responsif.', price: 'Rp 15.000', specs: ['Aman tanpa hilang kontak penting', 'Proses aman jarak jauh', 'Anti lag'], badge: 'Fast Process' },
+            { id: 104, title: 'Sewa Panel Bot WhatsApp Dedicated', desc: 'Hosting cPanel khusus untuk menjalankan script bot WhatsApp aktif 24 jam non-stop.', price: 'Rp 15.000 / Bulan', specs: ['RAM 2GB Stabil', 'Uptime 99.9%', 'Full akses panel'], badge: 'Recommended' },
+            { id: 105, title: 'Jasa Pembuatan Bot Store Otomatis', desc: 'Pemasangan script bot toko online untuk rekap order, cek harga, dan balasan chat otomatis.', price: 'Rp 35.000', specs: ['Fitur kustom sesuai request', 'Bonus panduan operasional', 'Support penuh admin'], badge: 'Auto Cuan' }
+        ];
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderNokos(nokosData);
+            renderServices(servicesData);
+            switchTab('nokos');
+        });
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            const targetPage = document.getElementById(`page-${tabName}`);
+            if (targetPage) targetPage.classList.add('active');
+
+            document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+                btn.className = 'nav-tab-btn px-5 py-2 rounded-full text-sm font-medium text-pink-300/75 hover:text-white hover:bg-pink-500/10 transition-all duration-300 flex items-center gap-2';
+            });
+            document.querySelectorAll('.mobile-tab-btn').forEach(btn => {
+                btn.className = 'mobile-tab-btn flex flex-col items-center justify-center text-pink-400/60 py-1 px-3 rounded-lg text-[10px] font-medium transition-all duration-300';
+            });
+
+            const activeNav = document.getElementById(`nav-btn-${tabName}`);
+            if (activeNav) {
+                activeNav.className = 'nav-tab-btn px-5 py-2 rounded-full text-sm font-bold text-white bg-gradient-to-r from-pink-600 to-purple-600 shadow-neon-pink transition-all duration-300 flex items-center gap-2';
+            }
+
+            const activeMobile = document.getElementById(`mobile-btn-${tabName}`);
+            if (activeMobile) {
+                activeMobile.className = 'mobile-tab-btn flex flex-col items-center justify-center text-pink-300 py-1 px-3 rounded-lg text-[10px] font-bold bg-pink-500/20 border border-pink-500/40 shadow-[0_0_12px_rgba(236,72,153,0.3)] transition-all duration-300';
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function renderNokos(items) {
+            const container = document.getElementById('nokos-container');
+            if (items.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-full text-center py-12 glass-panel rounded-2xl">
+                        <i class="fa-solid fa-box-open text-4xl text-pink-900 mb-3 block"></i>
+                        <p class="text-sm text-pink-300/60">Layanan tidak ditemukan untuk kata kunci tersebut.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = items.map(item => `
+                <div class="glass-panel card-glow card-shine p-4 rounded-2xl border border-pink-950 flex flex-col justify-between group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-24 h-24 bg-pink-500/5 rounded-full blur-xl group-hover:bg-pink-500/20 transition-colors duration-500"></div>
+                    
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-pink-500/10 text-pink-400 border border-pink-500/30">${item.badge}</span>
+                            <span class="text-[10px] font-medium text-emerald-400 flex items-center gap-1">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span> ${item.stock}
+                            </span>
+                        </div>
+
+                        <h3 class="text-sm font-bold text-white group-hover:text-pink-300 transition-colors duration-300">${item.name}</h3>
+                        <p class="text-xs text-pink-300/80 mt-1">Negara: <span class="text-pink-100">${item.countryName}</span></p>
+                    </div>
+
+                    <div class="mt-4 pt-3 border-t border-pink-950/80 flex items-center justify-between relative z-10">
+                        <div>
+                            <span class="block text-[10px] text-pink-400/70">Harga Satuan</span>
+                            <span class="text-base font-extrabold gradient-text">${item.price}</span>
+                        </div>
+                        <button onclick="openOrderModal('${item.name}', '${item.price}', '${item.platform}')" class="btn-outline px-3.5 py-2 rounded-xl bg-black/80 text-pink-200 font-bold text-xs border border-pink-900 flex items-center gap-1.5">
+                            Beli <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderServices(items) {
+            const container = document.getElementById('services-container');
+            container.innerHTML = items.map(item => `
+                <div class="glass-panel card-glow card-shine p-5 rounded-2xl border border-pink-950 flex flex-col justify-between relative group">
+                    <div class="relative z-10">
+                        <div class="flex items-center justify-between mb-3">
+                            <span class="text-[10px] font-extrabold uppercase px-2.5 py-0.5 rounded-full bg-purple-500/10 text-purple-400 border border-purple-500/30">${item.badge}</span>
+                            <i class="fa-solid fa-triangle-exclamation text-pink-400/80 text-sm"></i>
+                        </div>
+
+                        <h3 class="text-base font-bold text-white group-hover:text-pink-300 transition-colors duration-300">${item.title}</h3>
+                        <p class="text-xs text-pink-300/80 mt-2 leading-relaxed">${item.desc}</p>
+
+                        <div class="my-4 space-y-1.5">
+                            ${item.specs.map(spec => `
+                                <div class="flex items-center gap-2 text-xs text-pink-200">
+                                    <i class="fa-solid fa-circle-check text-pink-400 text-[10px]"></i>
+                                    <span>${spec}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-pink-950 flex items-center justify-between relative z-10">
+                        <div>
+                            <span class="block text-[10px] text-pink-400/70">Tarif Layanan</span>
+                            <span class="text-sm font-extrabold text-pink-300">${item.price}</span>
+                        </div>
+                        <button onclick="openOrderModal('${item.title}', '${item.price}', 'Jasa Bug WA')" class="btn-gradient px-4 py-2 rounded-xl text-white font-bold text-xs flex items-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> Pesan
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterNokos() {
+            const searchValue = document.getElementById('search-nokos').value.toLowerCase();
+            const countryValue = document.getElementById('filter-country').value;
+
+            const filtered = nokosData.filter(item => {
+                const matchesSearch = item.name.toLowerCase().includes(searchValue) || item.platform.toLowerCase().includes(searchValue);
+                const matchesCountry = countryValue === 'ALL' || item.country === countryValue;
+                return matchesSearch && matchesCountry;
+            });
+
+            renderNokos(filtered);
+        }
+
+        function openOrderModal(title, price, platform) {
+            document.getElementById('modal-item-title').innerText = title;
+            document.getElementById('modal-item-price').innerText = price;
+            document.getElementById('modal-item-platform').innerText = platform;
+
+            const message = `Halo Admin Azel Market ID, saya ingin memesan:\n\n📌 *Layanan*: ${title}\n💰 *Harga*: ${price}\n🏷️ *Kategori*: ${platform}\n\nMohon info ketersediaan stok & petunjuk pembayarannya. Terima kasih!`;
+            document.getElementById('modal-wa-btn').href = `https://wa.me/6285601099994?text=${encodeURIComponent(message)}`;
+
+            const modal = document.getElementById('order-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('order-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function zoomQR() {
+            const zoomModal = document.getElementById('zoom-modal');
+            zoomModal.classList.remove('hidden');
+            zoomModal.classList.add('flex');
+        }
+
+        function downloadQR() {
+            const link = document.createElement('a');
+            link.href = 'https://drive.google.com/file/d/17X8tpBgdFvJSG1Lg8znQtbO-fSTs9xzA/view?usp=drivesdk?text=QRIS+AZEL+MARKET+ID';
+            link.download = 'https://drive.google.com/file/d/17X8tpBgdFvJSG1Lg8znQtbO-fSTs9xzA/view?usp=drivesdk';
+            link.click();
+        }
+
+        function copyNMID() {
+            const tempInput = document.createElement('input');
+            tempInput.value = 'ID085601099994';
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempInput);
+
+            const toast = document.createElement('div');
+            toast.className = 'fixed bottom-24 left-1/2 -translate-x-1/2 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-neon-pink z-[60] modal-anim';
+            toast.innerText = '✅ NMID Berhasil Disalin!';
+            document.body.appendChild(toast);
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transition = 'opacity 0.4s';
+                setTimeout(() => toast.remove(), 400);
+            }, 2000);
+        }
+
+        function sendQuickMessage(event) {
+            event.preventDefault();
+            const name = document.getElementById('cust-name').value;
+            const topic = document.getElementById('cust-topic').value;
+            const message = document.getElementById('cust-message').value;
+
+            const fullText = `Halo Admin Azel Market ID,\n\nNama: *${name}*\nTopik: *${topic}*\nPesan: ${message}`;
+            window.open(`https://wa.me/6285601099994?text=${encodeURIComponent(fullText)}`, '_blank');
+        }
+
+        document.getElementById('order-modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+        document.getElementById('zoom-modal').addEventListener('click', function(e) {
+            if (e.target === this) { this.classList.add('hidden'); this.classList.remove('flex'); }
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                const z = document.getElementById('zoom-modal');
+                z.classList.add('hidden'); z.classList.remove('flex');
+            }
+        });
+    </script>
+</body>
+</html>
